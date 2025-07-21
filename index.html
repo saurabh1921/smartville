@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smartville.gov  with Smartville Assistant</title>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0;  }
+    html, body { height: 100%; }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(rgba(255,255,255,255), rgba(255,255,255,255)), url('Image/bg.png') center/cover no-repeat fixed;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* Header */
+    header { background: rgba(0, 76, 151, 0.9); color: white; position: sticky; top: 0; z-index: 1000; }
+    .container { width: 90%; max-width: 1200px; margin: auto; padding: 1rem; }
+    .logo { font-size: 1.75rem; font-weight: bold; letter-spacing: 1px; }
+    nav ul { display: flex; gap: 1.5rem; }
+    nav a { color: #f0f0f0; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    nav a:hover { text-decoration: underline; }
+    .top-nav { display: flex; justify-content: space-between; align-items: center; }
+
+    /* Hero */
+    .hero {
+      height: 350px;
+      display: flex;
+      padding: 3rem;
+      align-items: center;
+      justify-content: center;
+       background:  url('Image/bg.png') center/cover no-repeat fixed;
+      backdrop-filter: blur(2px);
+    }
+    .hero h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin: 3rem;
+      background: rgba(0,0,0,0.7);
+      padding: 0.15rem 5.5rem;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    /* Quick Links */
+    .quick-links { display: flex; flex-wrap: wrap; gap: 1rem; margin: 2.5rem 0; }
+    .quick-card {
+      flex: 1 1 calc(25% - 1rem);
+      background: rgba(255,255,255,0.85);
+      padding: 1.25rem;
+      border-radius: 6px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .quick-card:hover { 
+      background: rgba(255,255,255,1);
+      transform: translateY(-3px);
+    }
+    .quick-card a {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #004c97;
+    }
+
+.sw-initial-answer.svelte-v2wivb , sw-initial-answer svelte-v2wivb * {
+  color: #ffffff !important;
+  background-color: #000 !important;
+
+}
+
+
+    /* Smartville Assistant */
+    h2.widget-title {
+      text-align: center;
+      color: #114b8a;
+      margin-top: 3rem;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    nuclia-search-bar {
+      display: block;
+      margin: 1.5rem auto;
+      max-width: 600px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    #sample-questions h3 {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #114b8a;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .sample-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .sample-btn {
+      padding: 0.75rem 1.25rem;
+      background-color: #fff;
+      color: #114b8a;
+      border: 2px solid #114b8a;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .sample-btn:hover {
+      background-color: #114b8a;
+      color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(51,51,51,0.9);
+      color: #ccc;
+      padding: 2rem 0;
+      margin-top: auto;
+    }
+    .footer-cols {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .footer-col { flex: 1 1 200px; }
+    footer h4 { margin-bottom: 0.75rem; color: #fff; font-size: 1rem; }
+    footer a { color: #ccc; display: inline-block; margin-bottom: 0.5rem; }
+    footer a:hover { color: #fff; }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+
+nuclia-search-bar {
+      width: 100%;
+      max-width: 600px;
+      padding: 1rem;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+/* 1) Apply your gradient to the main container */
+.sw-initial-answer.svelte-v2wivb {
+  background: linear-gradient(135deg, #114b8a 0%, #0088cc 100%) !important;
+  padding: 1.5rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  position: relative;
+  z-index: 100 !important;
+}
+
+/* 2) Strip out any white backgrounds from immediate children */
+.sw-initial-answer.svelte-v2wivb > * {
+  background: transparent !important;
+}
+
+/* 3) Make sure text stays white */
+.sw-initial-answer.svelte-v2wivb,
+.sw-initial-answer.svelte-v2wivb * {
+  color: #fff !important;
+}
+    #sample-questions {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+  </style>
+  <script src="https://cdn.nuclia.cloud/nuclia-widget.umd.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container top-nav">
+      <div class="logo">Smartville.gov</div>
+      <nav>
+        <ul>
+          <li><a href="#">Government</a></li>
+          <li><a href="#">Residents</a></li>
+          <li><a href="#">Business</a></li>
+          <li><a href="#">Visitors</a></li>
+          <li><a href="#">Elected Officials</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Smartville</h1>
+  </section>
+
+  <div class="container">
+    <section class="quick-links">
+      <div class="quick-card"><a href="#">COVID-19 Updates</a></div>
+      <div class="quick-card"><a href="#">Apply for Benefits</a></div>
+      <div class="quick-card"><a href="#">Property Taxes</a></div>
+      <div class="quick-card"><a href="#">Jobs and Careers</a></div>
+    </section>
+
+    <!-- Smartville Assistant Widget -->
+    <h2 class="widget-title">Ask Smartville Assistant</h2>
+    <nuclia-search-bar
+      knowledgebox="aa372f95-d1eb-4cde-9e6a-a357251f66b0"
+      zone="aws-us-east-2-1"
+      features="answers,rephrase,suggestions"
+    ></nuclia-search-bar>
+
+ 
+    <nuclia-search-results style="text-align:center !important;  background-color:#fff !important;"></nuclia-search-results>
+  
+  </div>
+
+  <footer>
+    <div class="container footer-cols">
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Site Map</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 State of Maryland. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".sample-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const query = btn.getAttribute("data-question");
+          const searchBar = document.querySelector("nuclia-search-bar");
+          if (searchBar && typeof searchBar.ask === 'function') {
+            searchBar.ask(query);
+          } else {
+            const input = document.querySelector('[name="nuclia-search-field"]');
+            if (input) {
+              input.value = query;
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+              input.dispatchEvent(new KeyboardEvent('keydown', {
+                bubbles: true,
+                cancelable: true,
+                key: 'Enter',
+                code: 'Enter',
+                which: 13,
+                keyCode: 13
+              }));
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
