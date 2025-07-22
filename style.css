@@ -6,7 +6,7 @@
       line-height: 1.6;
       color: #333;
       /* Static full-screen background image */
-      background: url('Images/bg.png') center/cover no-repeat fixed;
+      background: url('bg.png') center/cover no-repeat fixed;
 
       display: flex;
       flex-direction: column;
